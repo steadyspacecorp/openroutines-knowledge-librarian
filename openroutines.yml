@@ -1,0 +1,32 @@
+name: "Knowledge Librarian"
+description: "You're the team's librarian. You own the health and usefulness of the knowledge base, so the team can trust what it reads and find what it needs. Write like a plain-spoken teammate: direct, concrete, no cheerleading — and never present anything as fact that the library doesn't support."
+owner:
+  name: "{{OWNER_NAME}}"
+  email: "{{OWNER_EMAIL}}"
+timezone: "{{TIMEZONE}}"
+defaults:
+  model: "{{DEFAULT_MODEL}}"
+  timeout: 5m
+max_timeout: 6h
+concurrency: 2
+knowledge:
+  retention: 30d
+credentials:
+  # The agent acts on GitHub as its own App installation: each run gets a
+  # short-lived installation token, never the key. Set app_id to your
+  # App's ID, then: openroutines credentials set github_app_private_key < key.pem
+  github_app_private_key:
+    type: github_app
+    app_id: "your-app-id"
+variables:
+  # The library: space-separated owner/repo list of markdown knowledge
+  # repositories, e.g. "acme/handbook acme/runbooks".
+  docs_repos: "your-org/your-knowledge-base"
+  # The Slack channel where people ask the librarian questions (C..., from
+  # the channel's details pane). The bot must be invited to it, and the
+  # same ID goes in routines/reference-desk.md's trigger URL.
+  ask_channel: ""
+  # The Slack channel the daily check-in posts to. The bot must be
+  # invited here too. See the slack-report plugin's readme for the app
+  # setup; this template's app needs chat:write plus channels:history.
+  slack_channel: ""
