@@ -1,3 +1,5 @@
+<img src="avatar.svg" alt="" width="96" align="right">
+
 A librarian for your team's knowledge base, built on
 [OpenRoutines](https://openroutines.dev). Point it at the git
 repositories your team's knowledge lives in — a handbook, runbooks, a
@@ -21,6 +23,7 @@ ask it to do something in the channel and the ask becomes its task.
 | gap-fill | Works the desk's recorded gaps with an evidence bar: recurring questions earn a clearly-marked draft page by PR; undocumented territory becomes a task for its owner. |
 | new-arrivals | Posts the week's library news to the ask channel: what's new, what got fixed, what people asked, what's still missing. |
 | slack-report | The agent's own daily check-in, posted to your check-in channel: what it did, what it will do, where it needs a human. |
+| slack-inbox | Answers replies in the check-in's thread. Ships inactive; the librarian's Slack app already has the scope it needs. |
 
 Each routine states its own boundary between what it fixes and what it
 flags. The agent makes mechanical changes by pull request — never a
@@ -57,7 +60,8 @@ and about ten minutes.
 2. `openroutines configure` — fills in the owner, timezone, and model,
    and generates the `master.key` that encrypts credentials (back it up;
    it stays out of git).
-3. Set the variables in `openroutines.yml`: the library repositories
+3. Set `repo` in `openroutines.yml` to your new repository's URL, then
+   set the variables: the library repositories
    (`docs_repos`), your ask channel, and your check-in channel — and the
    ask channel's ID in `routines/reference-desk.md`'s trigger URL.
 4. GitHub, as an App — so the agent's PRs are its own, and each run gets
@@ -76,6 +80,10 @@ and about ten minutes.
    `openroutines credentials set slack_bot_token`, invite the bot to
    both channels, and verify the wiring:
    `OPENROUTINES_LOG_LEVEL=warn openroutines routines run slack-verify --no-knowledge`
+   To let the librarian answer replies on its check-in too, put the
+   check-in channel's ID in
+   `.openroutines/plugins/slack-report/routines/slack-inbox.md`'s trigger
+   URL and set that routine `active: true`.
 6. `openroutines check`, commit, and
    [deploy](https://openroutines.dev/docs/deploying/).
 
