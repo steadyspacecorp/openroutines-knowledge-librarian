@@ -79,7 +79,7 @@ and about ten minutes.
    that one extra scope is what lets the librarian read questions.
    `openroutines credentials set slack_bot_token`, invite the bot to
    both channels, and verify the wiring:
-   `OPENROUTINES_LOG_LEVEL=warn openroutines routines run slack-verify --no-knowledge`
+   `OPENROUTINES_LOG_LEVEL=warn openroutines routines run slack-verify`
    To let the librarian answer replies on its check-in too, put the
    check-in channel's ID in
    `.openroutines/plugins/slack-report/routines/slack-inbox.md`'s trigger
